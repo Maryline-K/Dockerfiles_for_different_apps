@@ -1,0 +1,28 @@
+###### creating a dockerfile from Node.js web app
+
+#node images and the version
+FROM node:16 
+
+#the person to manage or maintain this image
+LABEL mkwa="mkwa@yahoo.com" 
+
+#creating the app directory for the image. which is the working directory for the application
+WORKDIR /usr/src/app
+
+#A wildcard is used to ensure both package.json AND package-lock.json are copied
+COPY package*.json ./
+
+#we need to install  our dependencies
+## RUN apt update npm install --production --silent && mv node_modules ../
+RUN npm install
+# If you are building your code for production
+# RUN npm ci =production--only
+
+#combine your source code by writing the following command
+COPY . .
+#WE CAN EXPOSE OUR APPLICATION PORT
+EXPOSE 8080
+
+# define the command to run your app using CMD which defines your runtime.
+CMD [ "node", "server.js" ]
+

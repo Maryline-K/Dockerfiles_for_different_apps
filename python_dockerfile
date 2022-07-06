@@ -1,0 +1,30 @@
+
+
+##### Creating a dockerfile for python application
+
+
+# stating the image where the application will be run
+
+FROM python:3
+
+# assigned someone to manage the application
+
+LABEL mkwa="mkwa@yahoo.com"
+
+# working directory for our application
+WORKDIR /usr/src/app
+
+
+# copy the requirements 
+
+COPY requirements.txt ./
+
+# We have to update and install the dependencies
+
+RUN apt update pip install --no-cache-dir -r requirements.txt
+
+#combine your source code by writing the following command
+COPY . .
+
+# define the command to run your app using CMD which defines your runtime.
+CMD [ "python", "./your-daemon-or-script.py" ]
